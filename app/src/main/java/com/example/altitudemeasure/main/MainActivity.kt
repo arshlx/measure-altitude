@@ -42,6 +42,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         viewModel = ViewModelProvider(this)[GeoViewModel::class.java]
         viewModel.altitudeStatus.observe(this, tempObserver)
+        binding.apply {
+            altitudeTxt.text =
+                getString(R.string.altitude_str, TaskStatus.LOADING)
+            latitudeTxt.text =
+                getString(R.string.latitude_str, TaskStatus.LOADING)
+            longitudeTxt.text =
+                getString(R.string.longitude_str, TaskStatus.LOADING)
+        }
         initPressureSensor()
         initLocationServices()
         checkLocationPermission()
@@ -54,7 +62,8 @@ class MainActivity : AppCompatActivity() {
         sensorEventListener = object : SensorEventListener {
             override fun onSensorChanged(sensorEvent: SensorEvent) {
                 val values = sensorEvent.values
-                binding.pressureTxt.text = String.format("%.3f mbar", values[0])
+                binding.pressureTxt.text =
+                    String.format("Atmospheric Pressure: %.3f mbar", values[0])
             }
 
             override fun onAccuracyChanged(sensor: Sensor?, i: Int) {}
@@ -67,7 +76,14 @@ class MainActivity : AppCompatActivity() {
             override fun onLocationResult(locationResult: LocationResult) {
                 super.onLocationResult(locationResult)
                 for (location in locationResult.locations) {
-                    binding.altitudeTxt.text = location.altitude.toString()
+                    binding.apply {
+                        altitudeTxt.text =
+                            getString(R.string.altitude_str, location.altitude.toString())
+                        latitudeTxt.text =
+                            getString(R.string.latitude_str, location.latitude.toString())
+                        longitudeTxt.text =
+                            getString(R.string.longitude_str, location.longitude.toString())
+                    }
                     viewModel.apply {
                         coordinates = if (tempInfo != null && location != null) getString(
                             R.string.coordinates,

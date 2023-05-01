@@ -1,39 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:padding="@dimen/space_normal"
     tools:context=".main.MainActivity">
 
     <TextView
         android:id="@+id/temperature_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="temperature"
-        app:layout_constraintBottom_toTopOf="@id/pressure_txt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAppearance="@style/text_style_lar_header01"
+        tools:text="temperature" />
 
     <TextView
         android:id="@+id/pressure_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="pressure"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAppearance="@style/text_style_lar_header01"
+        tools:text="pressure" />
 
     <TextView
         android:id="@+id/altitude_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="altitude"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/pressure_txt" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAppearance="@style/text_style_lar_header01"
+        tools:text="Altitude" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/latitude_txt"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAppearance="@style/text_style_lar_header01"
+        tools:text="Latitude" />
+
+    <TextView
+        android:id="@+id/longitude_txt"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:textAppearance="@style/text_style_lar_header01"
+        tools:text="Longitude" />
+
+</LinearLayout>

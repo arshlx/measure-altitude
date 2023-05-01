@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Altitude Measure</string>
     <string name="location_permission_denied">Location Permission Denied</string>
-    <string name="temperatureTemplate">%s Celsius</string>
+    <string name="temperatureTemplate">Local Temperature: %s Celsius</string>
     <string name="coordinates">%s, %s</string>
+    <string name="altitude_str">Altitude: %sm</string>
+    <string name="latitude_str">Latitude: %s</string>
+    <string name="longitude_str">Longitude: %s</string>
 </resources>
