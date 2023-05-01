@@ -12,6 +12,8 @@ import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.example.altitudemeasure.databinding.ActivityMainBinding
 import com.google.android.gms.location.*
 
@@ -24,10 +26,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sensorEventListener: SensorEventListener
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
+    private lateinit var viewModel: GeoViewModel
     private val locationRequest: LocationRequest = LocationRequest.Builder(7000)
         .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
         .setIntervalMillis(7000L)
-        .setMinUpdateIntervalMillis(5000L)
+        .setMinUpdateIntervalMillis(7000L)
 //        .setMaxUpdates(1)
         .build()
 
@@ -35,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        viewModel = ViewModelProvider(this)[GeoViewModel::class.java]
+        viewModel.altitudeStatus.observe(this, tempObserver)
         initPressureSensor()
         initLocationServices()
         checkLocationPermission()
@@ -61,9 +66,27 @@ class MainActivity : AppCompatActivity() {
                 super.onLocationResult(locationResult)
                 for (location in locationResult.locations) {
                     binding.altitudeTxt.text = location.altitude.toString()
+                    viewModel.getTemperature()
                 }
             }
 
+        }
+    }
+
+    private val tempObserver = Observer<String> {
+        when (it) {
+            TaskStatus.LOADING -> {
+//                binding.progressBar.visibility = View.VISIBLE
+            }
+            TaskStatus.SUCCESS -> {
+                binding.temperatureTxt.text = getString(
+                    R.string.temperatureTemplate,
+                    viewModel.tempInfo!!.temperature.toString()
+                )
+            }
+            TaskStatus.FAILURE -> {
+                binding.temperatureTxt.text = TaskStatus.FAILURE
+            }
         }
     }
 

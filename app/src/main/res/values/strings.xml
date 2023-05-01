@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Altitude Measure</string>
     <string name="location_permission_denied">Location Permission Denied</string>
+    <string name="temperatureTemplate">%s Celcius</string>
 </resources>

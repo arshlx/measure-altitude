@@ -12,7 +12,7 @@ object RetrofitService {
         val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
         return Retrofit.Builder()
-            .baseUrl("https://api.open-elevation.com/api/v1/")
+            .baseUrl("https://api.tomorrow.io/v4/weather")
             .addConverterFactory(GsonConverterFactory.create()).client(client).build()
     }
 }
