@@ -3,5 +3,4 @@
     <string name="location_permission_denied">Location Permission Denied</string>
     <string name="temperatureTemplate">%s Celsius</string>
     <string name="coordinates">%s, %s</string>
-    <string name="apiKey">GUpWzkZxI6e0vbfCS3lvu7FFj8lOlY9R</string>
 </resources>

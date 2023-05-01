@@ -1,4 +1,4 @@
-package com.example.altitudemeasure
+package com.example.altitudemeasure.services
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

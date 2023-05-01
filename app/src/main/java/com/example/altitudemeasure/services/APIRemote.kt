@@ -1,4 +1,4 @@
-package com.example.altitudemeasure
+package com.example.altitudemeasure.services
 
 import com.example.altitudemeasure.model.TemperatureResponse
 import retrofit2.Response

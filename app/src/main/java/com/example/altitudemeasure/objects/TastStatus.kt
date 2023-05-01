@@ -1,4 +1,4 @@
-package com.example.altitudemeasure
+package com.example.altitudemeasure.objects
 
 object TaskStatus {
     const val SUCCESS = "success"

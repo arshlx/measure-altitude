@@ -1,4 +1,4 @@
-package com.example.altitudemeasure
+package com.example.altitudemeasure.main
 
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.annotation.SuppressLint
@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.altitudemeasure.R
 import com.example.altitudemeasure.databinding.ActivityMainBinding
+import com.example.altitudemeasure.objects.TaskStatus
 import com.google.android.gms.location.*
 
 
@@ -29,8 +31,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: GeoViewModel
     private val locationRequest: LocationRequest = LocationRequest.Builder(7000)
         .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-        .setIntervalMillis(7000L)
-        .setMinUpdateIntervalMillis(7000L)
+        .setIntervalMillis(10000L)
+        .setMinUpdateIntervalMillis(5000L)
 //        .setMaxUpdates(1)
         .build()
 
@@ -67,12 +69,12 @@ class MainActivity : AppCompatActivity() {
                 for (location in locationResult.locations) {
                     binding.altitudeTxt.text = location.altitude.toString()
                     viewModel.apply {
-                        coordinates = if (tempInfo != null) getString(
+                        coordinates = if (tempInfo != null && location != null) getString(
                             R.string.coordinates,
                             location.latitude.toString(),
                             location.longitude.toString()
                         )
-                        else ""
+                        else "sydney"
                     }
 
                     viewModel.getTemperature()
@@ -83,19 +85,19 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val tempObserver = Observer<String> {
-        when (it) {
-            TaskStatus.LOADING -> {
-//                binding.progressBar.visibility = View.VISIBLE
-            }
-            TaskStatus.SUCCESS -> {
-                binding.temperatureTxt.text = getString(
+        binding.temperatureTxt.text = when (it) {
+            TaskStatus.LOADING ->
+                TaskStatus.LOADING
+
+            TaskStatus.SUCCESS ->
+                getString(
                     R.string.temperatureTemplate,
                     viewModel.tempInfo!!.temperature.toString()
                 )
-            }
-            TaskStatus.FAILURE -> {
-                binding.temperatureTxt.text = TaskStatus.FAILURE
-            }
+
+            TaskStatus.FAILURE ->
+                TaskStatus.FAILURE
+            else -> TaskStatus.EMPTY
         }
     }
 
