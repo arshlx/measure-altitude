@@ -11,12 +11,14 @@ class GeoViewModel: ViewModel() {
     val altitudeStatus = MutableLiveData(TaskStatus.NONE)
     var tempInfo:TempInfo? = null
     var coordinates = ""
+//    val apiKey
     fun getTemperature() {
         altitudeStatus.value = TaskStatus.LOADING
         viewModelScope.launch {
             val result = repository.getTemperature(coordinates)
             tempInfo = result.second
             altitudeStatus.value = result.first
+
         }
     }
 }

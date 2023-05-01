@@ -66,6 +66,15 @@ class MainActivity : AppCompatActivity() {
                 super.onLocationResult(locationResult)
                 for (location in locationResult.locations) {
                     binding.altitudeTxt.text = location.altitude.toString()
+                    viewModel.apply {
+                        coordinates = if (tempInfo != null) getString(
+                            R.string.coordinates,
+                            location.latitude.toString(),
+                            location.longitude.toString()
+                        )
+                        else ""
+                    }
+
                     viewModel.getTemperature()
                 }
             }
